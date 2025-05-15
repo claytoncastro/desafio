@@ -1,7 +1,7 @@
 package com.project.desafio.controller;
 
-import com.project.desafio.dto.ProdutoDTO;
-import com.project.desafio.entity.Produto;
+import com.project.desafio.dto.request.ProdutoPostRequest;
+import com.project.desafio.dto.response.ProdutoPostResponse;
 import com.project.desafio.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +17,7 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     @PostMapping("/criar-produto")
-    public Produto criarProduto(@RequestBody ProdutoDTO produto) {
+    public ProdutoPostResponse criarProduto(@RequestBody ProdutoPostRequest produto) {
         return produtoService.criarProduto(produto);
     }
 }

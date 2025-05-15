@@ -2,7 +2,8 @@ package com.project.desafio.service.impl;
 
 import com.project.desafio.dao.GenericDAO;
 import com.project.desafio.dao.factory.DAOFactory;
-import com.project.desafio.dto.ProdutoDTO;
+import com.project.desafio.dto.request.ProdutoPostRequest;
+import com.project.desafio.dto.response.ProdutoPostResponse;
 import com.project.desafio.entity.Produto;
 import com.project.desafio.service.ProdutoService;
 import jakarta.transaction.Transactional;
@@ -21,18 +22,18 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     @Override
     @Transactional
-    public Produto criarProduto(ProdutoDTO dto) {
-        Produto produto = new Produto();
-        copiarDados(dto, produto);
-        return produtoDAO.salvar(produto);
+    public ProdutoPostResponse criarProduto(ProdutoPostRequest dto) {
+        var produto = produtoDAO.salvar(ProdutoPostRequest.toEntity(dto));
+        return ProdutoPostResponse.toDomain(produto);
     }
 
     @Override
     @Transactional
-    public Produto atualizarProduto(Long id, ProdutoDTO dto) {
+    public Produto atualizarProduto(Long id, ProdutoPostRequest dto) {
         Produto produto = produtoDAO.buscarPorId(id).orElseThrow();
-        copiarDados(dto, produto);
-        return produtoDAO.atualizar(produto);
+        var produtoToUpdate = ProdutoPostRequest.toUpdateEntity(dto, produto);
+
+        return produtoDAO.atualizar(produtoToUpdate);
     }
 
     @Override
@@ -49,12 +50,5 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     public List<Produto> buscarTodos() {
         return produtoDAO.buscarTodos();
-    }
-
-    private void copiarDados(ProdutoDTO dto, Produto produto) {
-        produto.setNome(dto.getNome());
-        produto.setDescricao(dto.getDescricao());
-        produto.setPreco(dto.getPreco());
-        produto.setQuantidadeEstoque(dto.getQuantidadeEstoque());
     }
 }
