@@ -1,15 +1,20 @@
 package com.project.desafio.dao.factory;
 
-import com.project.desafio.dao.ProdutoDAO;
-import com.project.desafio.dao.impl.ProdutoDAOImpl;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import com.project.desafio.dao.GenericDAO;
+import com.project.desafio.dao.impl.GenericDAOImpl;
+import jakarta.persistence.EntityManager;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DAOFactory {
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+    private final EntityManager entityManager;
 
-    public static ProdutoDAO criarProdutoDAO() {
-        return new ProdutoDAOImpl(emf.createEntityManager());
+    public DAOFactory(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    public <T, ID> GenericDAO<T, ID> createDAO(Class<T> entityClass) {
+        return new GenericDAOImpl<>(entityManager, entityClass);
     }
 }
 

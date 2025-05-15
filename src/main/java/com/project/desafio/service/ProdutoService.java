@@ -1,15 +1,14 @@
 package com.project.desafio.service;
 
-import com.project.desafio.dao.ProdutoDAO;
-import com.project.desafio.dao.factory.DAOFactory;
+import com.project.desafio.dto.ProdutoDTO;
+import com.project.desafio.entity.Produto;
 
-public class ProdutoService {
+import java.util.List;
 
-    private final ProdutoDAO produtoDAO;
-
-    public ProdutoService() {
-        this.produtoDAO = DAOFactory.criarProdutoDAO();
-    }
-
-
+public interface ProdutoService {
+    Produto criarProduto(ProdutoDTO dto);
+    Produto atualizarProduto(Long id, ProdutoDTO dto);
+    void deletarProduto(Long id);
+    Produto buscarPorId(Long id);
+    List<Produto> buscarTodos();
 }

@@ -1,29 +1,13 @@
-package com.project.desafio.entity;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+package com.project.desafio.dto;
 
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "produto")
-public class Produto {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ProdutoDTO {
     private Long id;
     private String nome;
     private String descricao;
     private BigDecimal preco;
-    @Column(name = "quantidade_estoque")
-    private int quantidadeEstoque;
+    private Integer quantidadeEstoque;
 
     public Long getId() {
         return id;
@@ -57,11 +41,11 @@ public class Produto {
         this.preco = preco;
     }
 
-    public int getQuantidadeEstoque() {
+    public Integer getQuantidadeEstoque() {
         return quantidadeEstoque;
     }
 
-    public void setQuantidadeEstoque(int quantidadeEstoque) {
+    public void setQuantidadeEstoque(Integer quantidadeEstoque) {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 }
