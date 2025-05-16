@@ -10,10 +10,12 @@ import com.project.desafio.entity.Produto;
 import com.project.desafio.exceptions.RecursoNaoEncontradoException;
 import com.project.desafio.service.ProdutoService;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class ProdutoServiceImpl implements ProdutoService {
 
@@ -26,6 +28,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     @Transactional
     public ProdutoPostResponse criarProduto(ProdutoPostRequest dto) {
+        log.info("Criando novo Produto. . .");
         var produto = produtoDAO.salvar(ProdutoPostRequest.toEntity(dto));
         return ProdutoPostResponse.toDomain(produto);
     }
@@ -33,6 +36,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     @Transactional
     public ProdutoPutResponse atualizarProduto(ProdutoPutRequest dto) {
+        log.info("Atualizando Produto. . .");
         var produto = buscarProdutoPorId(dto.getId());
         var produtoToUpdate = ProdutoPutRequest.toUpdateEntity(dto, produto);
 
@@ -41,12 +45,14 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     @Override
     public ProdutoPutResponse buscarPorId(Long id) {
+        log.info("Buscando Produto pelo ID {}. . .", id);
         return ProdutoPutResponse.toDomain(buscarProdutoPorId(id));
     }
 
     @Override
     @Transactional
     public void deletarProduto(Long id) {
+        log.info("Deletando Produto pelo ID {}. . .", id);
         var produto = buscarProdutoPorId(id);
         produtoDAO.deletar(produto);
     }
@@ -54,6 +60,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     @Override
     public List<ProdutoPutResponse> buscarTodos() {
+        log.info("Buscando todos Produtos. . .");
         return produtoDAO.buscarTodos()
                 .stream()
                 .map(ProdutoPutResponse::toDomain)
