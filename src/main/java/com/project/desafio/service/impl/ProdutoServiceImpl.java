@@ -33,7 +33,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     @Transactional
     public ProdutoPutResponse atualizarProduto(ProdutoPutRequest dto) {
-        Produto produto = buscarProdutoPorId(dto.getId());
+        var produto = buscarProdutoPorId(dto.getId());
         var produtoToUpdate = ProdutoPutRequest.toUpdateEntity(dto, produto);
 
         return ProdutoPutResponse.toDomain(produtoDAO.atualizar(produtoToUpdate));
