@@ -6,6 +6,7 @@ import com.project.desafio.dto.response.ProdutoPostResponse;
 import com.project.desafio.dto.response.ProdutoPutResponse;
 import com.project.desafio.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,5 +42,10 @@ public class ProdutoController {
     @GetMapping("/buscar-produtos/{id}")
     public ProdutoPutResponse buscarPorId(@PathVariable(name = "id") Long id) {
         return produtoService.buscarPorId(id);
+    }
+
+    @DeleteMapping("/deletar-produto/{id}")
+    public void deletarProduto(@PathVariable(name = "id") Long id) {
+        produtoService.deletarProduto(id);
     }
 }

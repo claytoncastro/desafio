@@ -47,7 +47,8 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     @Transactional
     public void deletarProduto(Long id) {
-        produtoDAO.deletar(id);
+        var produto = buscarProdutoPorId(id);
+        produtoDAO.deletar(produto);
     }
 
 

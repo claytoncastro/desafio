@@ -30,8 +30,7 @@ public class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     }
 
     @Override
-    public void deletar(ID id) {
-        T entidade = entityManager.find(entidadeClass, id);
+    public void deletar(T entidade) {
         if (entidade != null) {
             entityManager.remove(entidade);
         }
