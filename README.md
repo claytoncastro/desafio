@@ -1,6 +1,21 @@
+
 # 📦 API de Gerenciamento de Produtos
 
 Esta é uma API RESTful desenvolvida com **Spring Boot**, projetada para realizar operações de **CRUD (Create, Read, Update, Delete)** sobre uma entidade de produto. A aplicação utiliza **DTOs para requisições e respostas**, um **serviço com DAO genérico** e está documentada com **Swagger OpenAPI 3**.
+
+---
+
+## 📚 Sumário
+
+- [✨ Funcionalidades](#-funcionalidades)
+- [🛠️ Tecnologias Utilizadas](#️-tecnologias-utilizadas)
+- [📁 Estrutura do Projeto](#-estrutura-do-projeto)
+- [🚀 Endpoints da API](#-endpoints-da-api)
+- [📄 Documentação Swagger](#-documentação-swagger)
+- [🧪 Validações](#-validações)
+- [❌ Tratamento de Erros](#-tratamento-de-erros)
+- [🧱 Como Rodar o Projeto](#-como-rodar-o-projeto)
+- [📌 Requisitos](#-requisitos)
 
 ---
 
@@ -166,4 +181,3 @@ A aplicação estará disponível em `http://localhost:8080`.
 - Java 17+
 - Maven 3.8+
 - Banco de dados configurado (se aplicável)
-
