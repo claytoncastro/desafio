@@ -40,14 +40,4 @@ public class ProdutoPostRequest {
                 .build();
     }
 
-
-    public static Produto toUpdateEntity(ProdutoPostRequest dto, Produto produto) {
-        produto.setNome(dto.getNome());
-        produto.setDescricao(dto.getDescricao());
-        produto.setPreco(dto.getPreco());
-        produto.setQuantidadeEstoque(dto.getQuantidadeEstoque());
-
-        return produto;
-    }
-
 }

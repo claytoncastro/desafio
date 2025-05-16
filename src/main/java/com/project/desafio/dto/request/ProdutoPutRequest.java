@@ -35,15 +35,6 @@ public class ProdutoPutRequest {
     @NotNull(message = "A quantidade em estoque é obrigatória")
     private Integer quantidadeEstoque;
 
-    public static Produto toEntity(ProdutoPutRequest produto) {
-        return Produto.builder()
-                .nome(produto.getNome())
-                .descricao(produto.getDescricao())
-                .preco(produto.getPreco())
-                .quantidadeEstoque(produto.getQuantidadeEstoque())
-                .build();
-    }
-
 
     public static Produto toUpdateEntity(ProdutoPutRequest dto, Produto produto) {
         produto.setNome(dto.getNome());
