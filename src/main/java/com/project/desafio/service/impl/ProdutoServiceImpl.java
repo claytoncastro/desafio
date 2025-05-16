@@ -3,8 +3,11 @@ package com.project.desafio.service.impl;
 import com.project.desafio.dao.GenericDAO;
 import com.project.desafio.dao.factory.DAOFactory;
 import com.project.desafio.dto.request.ProdutoPostRequest;
+import com.project.desafio.dto.request.ProdutoPutRequest;
 import com.project.desafio.dto.response.ProdutoPostResponse;
+import com.project.desafio.dto.response.ProdutoPutResponse;
 import com.project.desafio.entity.Produto;
+import com.project.desafio.exceptions.RecursoNaoEncontradoException;
 import com.project.desafio.service.ProdutoService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -29,11 +32,14 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     @Override
     @Transactional
-    public Produto atualizarProduto(Long id, ProdutoPostRequest dto) {
-        Produto produto = produtoDAO.buscarPorId(id).orElseThrow();
-        var produtoToUpdate = ProdutoPostRequest.toUpdateEntity(dto, produto);
+    public ProdutoPutResponse atualizarProduto(ProdutoPutRequest dto) {
+        Produto produto = produtoDAO.buscarPorId(dto.getId())
+                .orElseThrow(
+                        () -> new RecursoNaoEncontradoException(
+                                "Produto com ID " + dto.getId() + " não encontrado."));
+        var produtoToUpdate = ProdutoPutRequest.toUpdateEntity(dto, produto);
 
-        return produtoDAO.atualizar(produtoToUpdate);
+        return ProdutoPutResponse.toDomain(produtoDAO.atualizar(produtoToUpdate));
     }
 
     @Override

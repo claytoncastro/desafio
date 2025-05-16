@@ -2,9 +2,7 @@ package com.project.desafio.dao.impl;
 
 import com.project.desafio.dao.GenericDAO;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
