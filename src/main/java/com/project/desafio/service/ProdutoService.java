@@ -12,6 +12,6 @@ public interface ProdutoService {
     ProdutoPostResponse criarProduto(ProdutoPostRequest dto);
     ProdutoPutResponse atualizarProduto(ProdutoPutRequest dto);
     void deletarProduto(Long id);
-    Produto buscarPorId(Long id);
-    List<Produto> buscarTodos();
+    ProdutoPutResponse buscarPorId(Long id);
+    List<ProdutoPutResponse> buscarTodos();
 }

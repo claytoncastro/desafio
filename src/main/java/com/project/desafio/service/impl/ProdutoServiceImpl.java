@@ -33,13 +33,15 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     @Transactional
     public ProdutoPutResponse atualizarProduto(ProdutoPutRequest dto) {
-        Produto produto = produtoDAO.buscarPorId(dto.getId())
-                .orElseThrow(
-                        () -> new RecursoNaoEncontradoException(
-                                "Produto com ID " + dto.getId() + " não encontrado."));
+        Produto produto = buscarProdutoPorId(dto.getId());
         var produtoToUpdate = ProdutoPutRequest.toUpdateEntity(dto, produto);
 
         return ProdutoPutResponse.toDomain(produtoDAO.atualizar(produtoToUpdate));
+    }
+
+    @Override
+    public ProdutoPutResponse buscarPorId(Long id) {
+        return ProdutoPutResponse.toDomain(buscarProdutoPorId(id));
     }
 
     @Override
@@ -48,13 +50,20 @@ public class ProdutoServiceImpl implements ProdutoService {
         produtoDAO.deletar(id);
     }
 
-    @Override
-    public Produto buscarPorId(Long id) {
-        return produtoDAO.buscarPorId(id).orElseThrow();
-    }
 
     @Override
-    public List<Produto> buscarTodos() {
-        return produtoDAO.buscarTodos();
+    public List<ProdutoPutResponse> buscarTodos() {
+        return produtoDAO.buscarTodos()
+                .stream()
+                .map(ProdutoPutResponse::toDomain)
+                .toList();
+    }
+
+    private Produto buscarProdutoPorId(Long id) {
+        return produtoDAO.buscarPorId(id)
+                .orElseThrow(
+                        () -> new RecursoNaoEncontradoException(
+                                "Produto com ID " + id + " não encontrado.")
+                );
     }
 }
